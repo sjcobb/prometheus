@@ -7,13 +7,13 @@ import { PanelOptions } from '../../pages/graph/Panel';
 
 export interface PersesQueryPanelProps {
   options: PanelOptions;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onQueryChange: (query?: any) => void;
+  onQueryChange: (query?: string) => void;
   onRemovePanel: () => void;
   pastQueries: string[];
   id: string;
 }
 
+// TODO: fix datasource and add back features such as table view, dark mode, exemplar support
 export function PersesQueryPanel(props: PersesQueryPanelProps) {
   const { onQueryChange, onRemovePanel } = props;
   const defaultQuerySpec = {
