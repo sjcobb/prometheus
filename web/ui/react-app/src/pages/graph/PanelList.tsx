@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from 'react';
+import { Box } from '@mui/material';
 import { Alert, Button, Toast, ToastBody } from 'reactstrap';
-
+import { PersesDashboardProviders } from '../../components/perses/PersesDashboardProviders';
+import { PersesQueryPanel } from '../../components/perses/PersesQueryPanel';
 import Checkbox from '../../components/Checkbox';
 import { API_PATH } from '../../constants/constants';
 import { ToastContext } from '../../contexts/ToastContext';
@@ -8,7 +10,7 @@ import { usePathPrefix } from '../../contexts/PathPrefixContext';
 import { useFetch } from '../../hooks/useFetch';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { callAll, decodePanelOptionsFromQueryString, encodePanelOptionsToQueryString, generateID } from '../../utils';
-import Panel, { PanelDefaultOptions, PanelOptions } from './Panel';
+import { PanelDefaultOptions, PanelOptions } from './Panel';
 
 export type PanelMeta = { key: string; options: PanelOptions; id: string };
 
@@ -82,40 +84,49 @@ export const PanelListContent: FC<PanelListContentProps> = ({
   const pathPrefix = usePathPrefix();
 
   return (
-    <>
+    <PersesDashboardProviders
+      dashboard={{
+        kind: 'Dashboard',
+        metadata: {
+          project: 'test',
+          version: 10,
+          name: 'test',
+          created_at: '2021-09-01T00:00:00Z',
+          updated_at: '2021-09-01T00:00:00Z',
+        },
+        spec: {
+          duration: '1h',
+          panels: {},
+          layouts: [],
+          variables: [],
+        },
+      }}
+    >
       {panels.map(({ id, options }) => (
-        <Panel
-          pathPrefix={pathPrefix}
-          onExecuteQuery={handleExecuteQuery}
-          key={id}
-          id={id}
-          options={options}
-          onOptionsChanged={(opts) =>
-            callAll(setPanels, updateURL)(panels.map((p) => (id === p.id ? { ...p, options: opts } : p)))
-          }
-          removePanel={() =>
-            callAll(
-              setPanels,
-              updateURL
-            )(
-              panels.reduce<PanelMeta[]>(
-                (acc, panel) => (panel.id !== id ? [...acc, { ...panel, key: `${acc.length}` }] : acc),
-                []
+        <Box id={id} mb={2}>
+          <PersesQueryPanel
+            id={id}
+            options={options}
+            pastQueries={queryHistoryEnabled ? historyItems : []}
+            onQueryChange={handleExecuteQuery}
+            onRemovePanel={() =>
+              callAll(
+                setPanels,
+                updateURL
+              )(
+                panels.reduce<PanelMeta[]>(
+                  (acc, panel) => (panel.id !== id ? [...acc, { ...panel, key: `${acc.length}` }] : acc),
+                  []
+                )
               )
-            )
-          }
-          useLocalTime={useLocalTime}
-          metricNames={metrics}
-          pastQueries={queryHistoryEnabled ? historyItems : []}
-          enableAutocomplete={enableAutocomplete}
-          enableHighlighting={enableHighlighting}
-          enableLinter={enableLinter}
-        />
+            }
+          />
+        </Box>
       ))}
       <Button className="d-block mb-3" color="primary" onClick={addPanel}>
         Add Panel
       </Button>
-    </>
+    </PersesDashboardProviders>
   );
 };
 
