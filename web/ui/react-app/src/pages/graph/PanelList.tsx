@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { Alert, Button, Toast, ToastBody } from 'reactstrap';
 import { PersesDashboardProviders } from '../../components/perses/PersesDashboardProviders';
-// import { MemoTimeSeriesPanel } from '../../components/perses/TimeSeriesPanel';
 import { PersesQueryPanel } from '../../components/perses/PersesQueryPanel';
 import Checkbox from '../../components/Checkbox';
 import { API_PATH } from '../../constants/constants';
@@ -105,7 +104,23 @@ export const PanelListContent: FC<PanelListContentProps> = ({
     >
       {panels.map(({ id, options }) => (
         <Box id={id} mb={2}>
-          <PersesQueryPanel options={options} onQueryChange={handleExecuteQuery} />
+          <PersesQueryPanel
+            id={id}
+            options={options}
+            pastQueries={queryHistoryEnabled ? historyItems : []}
+            onQueryChange={handleExecuteQuery}
+            onRemovePanel={() =>
+              callAll(
+                setPanels,
+                updateURL
+              )(
+                panels.reduce<PanelMeta[]>(
+                  (acc, panel) => (panel.id !== id ? [...acc, { ...panel, key: `${acc.length}` }] : acc),
+                  []
+                )
+              )
+            }
+          />
         </Box>
       ))}
       <Button className="d-block mb-3" color="primary" onClick={addPanel}>
