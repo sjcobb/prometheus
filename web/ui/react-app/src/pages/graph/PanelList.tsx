@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
+import { Box } from '@mui/material';
 import { Alert, Button, Toast, ToastBody } from 'reactstrap';
-
 import { PersesDashboardProviders } from '../../components/perses/PersesDashboardProviders';
 import { MemoPromQueryPanel } from '../../components/perses/PromQueryPanel';
 import Checkbox from '../../components/Checkbox';
@@ -83,6 +83,8 @@ export const PanelListContent: FC<PanelListContentProps> = ({
 
   const pathPrefix = usePathPrefix();
 
+  const persesQuery = 'up';
+
   return (
     <PersesDashboardProviders
       dashboard={{
@@ -102,36 +104,37 @@ export const PanelListContent: FC<PanelListContentProps> = ({
         },
       }}
     >
-      {/* <MemoPromQueryPanel query={query || ''} /> */}
-      <MemoPromQueryPanel query={''} />
       {panels.map(({ id, options }) => (
-        <Panel
-          pathPrefix={pathPrefix}
-          onExecuteQuery={handleExecuteQuery}
-          key={id}
-          id={id}
-          options={options}
-          onOptionsChanged={(opts) =>
-            callAll(setPanels, updateURL)(panels.map((p) => (id === p.id ? { ...p, options: opts } : p)))
-          }
-          removePanel={() =>
-            callAll(
-              setPanels,
-              updateURL
-            )(
-              panels.reduce<PanelMeta[]>(
-                (acc, panel) => (panel.id !== id ? [...acc, { ...panel, key: `${acc.length}` }] : acc),
-                []
-              )
-            )
-          }
-          useLocalTime={useLocalTime}
-          metricNames={metrics}
-          pastQueries={queryHistoryEnabled ? historyItems : []}
-          enableAutocomplete={enableAutocomplete}
-          enableHighlighting={enableHighlighting}
-          enableLinter={enableLinter}
-        />
+        <Box sx={{ height: 500, margin: 1 }}>
+          <MemoPromQueryPanel query={persesQuery} />
+        </Box>
+        // <Panel
+        //   pathPrefix={pathPrefix}
+        //   onExecuteQuery={handleExecuteQuery}
+        //   key={id}
+        //   id={id}
+        //   options={options}
+        //   onOptionsChanged={(opts) =>
+        //     callAll(setPanels, updateURL)(panels.map((p) => (id === p.id ? { ...p, options: opts } : p)))
+        //   }
+        //   removePanel={() =>
+        //     callAll(
+        //       setPanels,
+        //       updateURL
+        //     )(
+        //       panels.reduce<PanelMeta[]>(
+        //         (acc, panel) => (panel.id !== id ? [...acc, { ...panel, key: `${acc.length}` }] : acc),
+        //         []
+        //       )
+        //     )
+        //   }
+        //   useLocalTime={useLocalTime}
+        //   metricNames={metrics}
+        //   pastQueries={queryHistoryEnabled ? historyItems : []}
+        //   enableAutocomplete={enableAutocomplete}
+        //   enableHighlighting={enableHighlighting}
+        //   enableLinter={enableLinter}
+        // />
       ))}
       <Button className="d-block mb-3" color="primary" onClick={addPanel}>
         Add Panel

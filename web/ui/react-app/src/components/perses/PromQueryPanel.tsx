@@ -16,6 +16,7 @@ export function PromQueryPanel({ query }: { query: string }) {
 
             spec: {
               legend: {
+                // position: 'Bottom',
                 position: 'Right',
               },
               queries: [
