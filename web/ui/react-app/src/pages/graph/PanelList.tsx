@@ -2,7 +2,8 @@ import { FC, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { Alert, Button, Toast, ToastBody } from 'reactstrap';
 import { PersesDashboardProviders } from '../../components/perses/PersesDashboardProviders';
-import { MemoPromQueryPanel } from '../../components/perses/PromQueryPanel';
+// import { MemoTimeSeriesPanel } from '../../components/perses/TimeSeriesPanel';
+import { PersesQueryPanel } from '../../components/perses/PersesQueryPanel';
 import Checkbox from '../../components/Checkbox';
 import { API_PATH } from '../../constants/constants';
 import { ToastContext } from '../../contexts/ToastContext';
@@ -10,7 +11,7 @@ import { usePathPrefix } from '../../contexts/PathPrefixContext';
 import { useFetch } from '../../hooks/useFetch';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { callAll, decodePanelOptionsFromQueryString, encodePanelOptionsToQueryString, generateID } from '../../utils';
-import Panel, { PanelDefaultOptions, PanelOptions } from './Panel';
+import { PanelDefaultOptions, PanelOptions } from './Panel';
 
 export type PanelMeta = { key: string; options: PanelOptions; id: string };
 
@@ -83,8 +84,6 @@ export const PanelListContent: FC<PanelListContentProps> = ({
 
   const pathPrefix = usePathPrefix();
 
-  const persesQuery = 'up';
-
   return (
     <PersesDashboardProviders
       dashboard={{
@@ -105,36 +104,9 @@ export const PanelListContent: FC<PanelListContentProps> = ({
       }}
     >
       {panels.map(({ id, options }) => (
-        <Box sx={{ height: 500, margin: 1 }}>
-          <MemoPromQueryPanel query={persesQuery} />
+        <Box id={id} mb={2}>
+          <PersesQueryPanel options={options} onQueryChange={handleExecuteQuery} />
         </Box>
-        // <Panel
-        //   pathPrefix={pathPrefix}
-        //   onExecuteQuery={handleExecuteQuery}
-        //   key={id}
-        //   id={id}
-        //   options={options}
-        //   onOptionsChanged={(opts) =>
-        //     callAll(setPanels, updateURL)(panels.map((p) => (id === p.id ? { ...p, options: opts } : p)))
-        //   }
-        //   removePanel={() =>
-        //     callAll(
-        //       setPanels,
-        //       updateURL
-        //     )(
-        //       panels.reduce<PanelMeta[]>(
-        //         (acc, panel) => (panel.id !== id ? [...acc, { ...panel, key: `${acc.length}` }] : acc),
-        //         []
-        //       )
-        //     )
-        //   }
-        //   useLocalTime={useLocalTime}
-        //   metricNames={metrics}
-        //   pastQueries={queryHistoryEnabled ? historyItems : []}
-        //   enableAutocomplete={enableAutocomplete}
-        //   enableHighlighting={enableHighlighting}
-        //   enableLinter={enableLinter}
-        // />
       ))}
       <Button className="d-block mb-3" color="primary" onClick={addPanel}>
         Add Panel
