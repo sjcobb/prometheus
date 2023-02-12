@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { useTheme } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { QueryParamProvider } from 'use-query-params';
-// import { NextAdapter } from 'next-query-params';
 import { ReactRouter5Adapter } from 'use-query-params/adapters/react-router-5';
 import { DashboardResource, DurationString, TimeRangeValue } from '@perses-dev/core';
 import { ChartsThemeProvider, EChartsTheme, generateChartsTheme, PersesChartsTheme } from '@perses-dev/components';

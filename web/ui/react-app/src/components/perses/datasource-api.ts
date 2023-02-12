@@ -11,22 +11,12 @@ export function useDatasourceApi(): DatasourceStoreProviderProps['datasourceApi'
       if (selector.kind === 'PrometheusDatasource' && selector.name === undefined) {
         return {
           resource: datasource,
-          proxyUrl: '/data/m3',
+          proxyUrl: '',
+          // proxyUrl: 'http://localhost:9090',
         };
       }
       return undefined;
     },
-    // getGlobalDatasource: async (selector) => {
-    //   return fetchGlobalDatasourceList(selector.kind, selector.name ? undefined : true, selector.name).then((list) => {
-    //     // hopefully it should return at most one element
-    //     if (list[0] !== undefined) {
-    //       return {
-    //         resource: list[0],
-    //         proxyUrl: getProxyUrl(list[0]),
-    //       };
-    //     }
-    //   });
-    // },
     listDatasources: async (/*project, pluginKind*/) => {
       return [];
     },
@@ -38,51 +28,6 @@ export function useDatasourceApi(): DatasourceStoreProviderProps['datasourceApi'
     },
   };
 }
-
-// const datasource: GlobalDatasource = {
-//   kind: 'GlobalDatasource',
-//   metadata: {
-//     name: 'PrometheusDemo',
-//     created_at: '',
-//     updated_at: '',
-//     version: 0,
-//   },
-//   spec: {
-//     default: true,
-//     display: {
-//       name: 'Prometheus Demo',
-//     },
-//     plugin: {
-//       kind: 'PrometheusDatasource',
-//       spec: {
-//         // direct_url: 'https://prometheus.demo.do.prometheus.io',
-//         direct_url: 'http://localhost:9090',
-//       },
-//     },
-//   },
-// };
-
-// const datasource: GlobalDatasource = {
-//   kind: 'GlobalDatasource',
-//   metadata: {
-//     name: 'PrometheusDemo',
-//     created_at: '',
-//     updated_at: '',
-//     version: 0,
-//   },
-//   spec: {
-//     default: true,
-//     plugin: {
-//       kind: 'PrometheusDatasource',
-//       spec: {
-//         proxy: {
-//           kind: 'HTTPProxy',
-//           spec: { url: 'https://prometheus.demo.do.prometheus.io' },
-//         },
-//       },
-//     },
-//   },
-// };
 
 const datasource: GlobalDatasource = {
   kind: 'GlobalDatasource',
