@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from 'react';
 import { Alert, Button, Toast, ToastBody } from 'reactstrap';
 
+import { PersesDashboardProviders } from '../../components/perses/PersesDashboardProviders';
+import { MemoPromQueryPanel } from '../../components/perses/PromQueryPanel';
 import Checkbox from '../../components/Checkbox';
 import { API_PATH } from '../../constants/constants';
 import { ToastContext } from '../../contexts/ToastContext';
@@ -82,7 +84,26 @@ export const PanelListContent: FC<PanelListContentProps> = ({
   const pathPrefix = usePathPrefix();
 
   return (
-    <>
+    <PersesDashboardProviders
+      dashboard={{
+        kind: 'Dashboard',
+        metadata: {
+          project: 'test',
+          version: 10,
+          name: 'test',
+          created_at: '2021-09-01T00:00:00Z',
+          updated_at: '2021-09-01T00:00:00Z',
+        },
+        spec: {
+          duration: '1h',
+          panels: {},
+          layouts: [],
+          variables: [],
+        },
+      }}
+    >
+      {/* <MemoPromQueryPanel query={query || ''} /> */}
+      <MemoPromQueryPanel query={''} />
       {panels.map(({ id, options }) => (
         <Panel
           pathPrefix={pathPrefix}
@@ -115,7 +136,7 @@ export const PanelListContent: FC<PanelListContentProps> = ({
       <Button className="d-block mb-3" color="primary" onClick={addPanel}>
         Add Panel
       </Button>
-    </>
+    </PersesDashboardProviders>
   );
 };
 
