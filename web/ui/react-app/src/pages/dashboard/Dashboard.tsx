@@ -18,10 +18,10 @@ const Dashboard = () => {
     },
     spec: {
       panels: {
-        Default: {
+        ChartFirst: {
           kind: 'Panel',
           spec: {
-            display: { name: 'Default' },
+            display: { name: 'Chart First' },
             plugin: {
               kind: 'TimeSeriesChart',
               spec: {
@@ -40,6 +40,28 @@ const Dashboard = () => {
             },
           },
         },
+        ChartSecond: {
+          kind: 'Panel',
+          spec: {
+            display: { name: 'Chart Second' },
+            plugin: {
+              kind: 'TimeSeriesChart',
+              spec: {
+                queries: [
+                  {
+                    kind: 'TimeSeriesQuery',
+                    spec: {
+                      plugin: {
+                        kind: 'PrometheusTimeSeriesQuery',
+                        spec: { query: 'node_memory_Buffers_bytes' },
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
       },
       layouts: [
         {
@@ -50,9 +72,16 @@ const Dashboard = () => {
               {
                 x: 0,
                 y: 0,
-                width: 24,
-                height: 10,
+                width: 12,
+                height: 11,
                 content: { $ref: '#/spec/panels/Default' },
+              },
+              {
+                x: 12,
+                y: 0,
+                width: 12,
+                height: 11,
+                content: { $ref: '#/spec/panels/ChartSecond' },
               },
             ],
           },
@@ -68,7 +97,7 @@ const Dashboard = () => {
       <ViewDashboard
         dashboardResource={data}
         datasourceApi={datasourceApi}
-        dashboardTitleComponent={<Typography variant="h2">Home Dashboard</Typography>}
+        dashboardTitleComponent={<Typography variant="h3">Home Dashboard</Typography>}
         // onSave={handleDashboardSave}
         // onDiscard={handleDashboardDiscard}
         initialVariableIsSticky={false}
