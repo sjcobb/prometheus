@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TimeRangeControls } from '@perses-dev/dashboards';
-import { Box, Button, Stack, Typography, Grid } from '@mui/material';
+import { Box, Button, Stack, Typography, Grid, Divider } from '@mui/material';
 import { PrometheusTimeSeriesQuery } from '@perses-dev/prometheus-plugin';
 import { MemoTimeSeriesPanel } from './TimeSeriesPanel';
 import { PanelOptions } from '../../pages/graph/Panel';
@@ -58,9 +58,12 @@ export function PersesQueryPanel(props: PersesQueryPanelProps) {
             </Box>
             <Stack direction={'row'} spacing={2} justifyContent="flex-end">
               <Box>
-                <Button onClick={onRemovePanel}>Remove Panel</Button>
+                <Button variant="outlined" onClick={onRemovePanel}>
+                  Remove Panel
+                </Button>
               </Box>
             </Stack>
+            <Divider />
           </Stack>
         </Grid>
       </Grid>

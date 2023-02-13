@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
-import { Box } from '@mui/material';
-import { Alert, Button, Toast, ToastBody } from 'reactstrap';
+import { Box, Button as MuiButton } from '@mui/material';
+import { Alert, Toast, ToastBody } from 'reactstrap';
 import { PersesDashboardProviders } from '../../components/perses/PersesDashboardProviders';
 import { PersesQueryPanel } from '../../components/perses/PersesQueryPanel';
 import Checkbox from '../../components/Checkbox';
@@ -123,9 +123,9 @@ export const PanelListContent: FC<PanelListContentProps> = ({
           />
         </Box>
       ))}
-      <Button className="d-block mb-3" color="primary" onClick={addPanel}>
+      <MuiButton variant="contained" onClick={addPanel} sx={{ mb: 2 }}>
         Add Panel
-      </Button>
+      </MuiButton>
     </PersesDashboardProviders>
   );
 };

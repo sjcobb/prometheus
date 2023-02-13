@@ -6,7 +6,7 @@ export function TimeSeriesPanel({ query }: { query: string }) {
     <TimeSeriesChart.PanelComponent
       contentDimensions={{
         width: 1200,
-        height: 500,
+        height: 400,
       }}
       spec={{
         legend: {
