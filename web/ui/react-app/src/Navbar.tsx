@@ -49,6 +49,11 @@ const Navigation: FC<NavbarProps> = ({ consolesLink, agentMode }) => {
                   Graph
                 </NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/dashboard">
+                  Dashboard
+                </NavLink>
+              </NavItem>
             </>
           )}
           <UncontrolledDropdown nav inNavbar>
