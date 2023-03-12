@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { MenuItem } from '@mui/material';
 import {
   Collapse,
   Navbar,
   NavbarToggler,
   Nav,
-  NavItem,
+  // MenuItem,
   NavLink,
   UncontrolledDropdown,
   DropdownToggle,
@@ -33,32 +34,32 @@ const Navigation: FC<NavbarProps> = ({ consolesLink, agentMode }) => {
       <Collapse isOpen={isOpen} navbar style={{ justifyContent: 'space-between' }}>
         <Nav className="ml-0" navbar>
           {consolesLink !== null && (
-            <NavItem>
+            <MenuItem>
               <NavLink href={consolesLink}>Consoles</NavLink>
-            </NavItem>
+            </MenuItem>
           )}
           {!agentMode && (
             <>
-              <NavItem>
+              <MenuItem>
                 <NavLink tag={Link} to="/alerts">
                   Alerts
                 </NavLink>
-              </NavItem>
-              <NavItem>
+              </MenuItem>
+              <MenuItem>
                 <NavLink tag={Link} to="/graph">
                   Graph
                 </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/perses">
+              </MenuItem>
+              <MenuItem>
+                <NavLink tag={Link} to="/perses-graph">
                   Perses
                 </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/dashboard">
+              </MenuItem>
+              <MenuItem>
+                <NavLink tag={Link} to="/perses-dashboard">
                   Dashboard
                 </NavLink>
-              </NavItem>
+              </MenuItem>
             </>
           )}
           <UncontrolledDropdown nav inNavbar>
@@ -93,9 +94,9 @@ const Navigation: FC<NavbarProps> = ({ consolesLink, agentMode }) => {
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
-          <NavItem>
+          <MenuItem>
             <NavLink href="https://prometheus.io/docs/prometheus/latest/getting_started/">Help</NavLink>
-          </NavItem>
+          </MenuItem>
         </Nav>
       </Collapse>
       <ThemeToggle />

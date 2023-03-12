@@ -36,7 +36,6 @@ const App: FC<AppProps> = ({ consolesLink, agentMode }) => {
   const paths = [
     '/agent',
     '/graph',
-    '/dashboard',
     '/alerts',
     '/status',
     '/tsdb-status',
@@ -45,6 +44,8 @@ const App: FC<AppProps> = ({ consolesLink, agentMode }) => {
     '/rules',
     '/targets',
     '/service-discovery',
+    '/perses-graph',
+    '/perses-dashboard',
   ];
   if (basePath.endsWith('/')) {
     basePath = basePath.slice(0, -1);
@@ -104,12 +105,6 @@ const App: FC<AppProps> = ({ consolesLink, agentMode }) => {
                 <Route path="/graph">
                   <PanelListPage />
                 </Route>
-                <Route path="/perses">
-                  <PersesPanelListPage />
-                </Route>
-                <Route path="/dashboard">
-                  <DashboardPage />
-                </Route>
                 <Route path="/alerts">
                   <AlertsPage />
                 </Route>
@@ -133,6 +128,12 @@ const App: FC<AppProps> = ({ consolesLink, agentMode }) => {
                 </Route>
                 <Route path="/targets">
                   <TargetsPage />
+                </Route>
+                <Route path="/perses-graph">
+                  <PersesPanelListPage />
+                </Route>
+                <Route path="/perses-dashboard">
+                  <DashboardPage />
                 </Route>
               </Switch>
             </Box>
