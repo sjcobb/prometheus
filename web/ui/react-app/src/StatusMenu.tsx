@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, SyntheticEvent, KeyboardEvent, FC } from 'react';
-import { Button, Box, ClickAwayListener, Grow, Link, Paper, Popper, MenuItem, MenuList, Stack } from '@mui/material';
+import { Button, Box, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList, Stack } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 
 interface StatusMenuProps {
   agentMode: boolean;
@@ -45,7 +46,7 @@ const StatusMenu: FC<StatusMenuProps> = ({ agentMode }) => {
       <Box>
         <Button
           ref={anchorRef}
-          aria-controls={open ? 'composition-menu' : undefined}
+          aria-controls={open ? 'status-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
@@ -64,34 +65,34 @@ const StatusMenu: FC<StatusMenuProps> = ({ agentMode }) => {
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList
                     autoFocusItem={open}
-                    id="composition-menu"
+                    id="status-menu"
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
                     <MenuItem onClick={handleClose}>
-                      <Link href="status">Runtime & Build Information</Link>
+                      <RouterLink to="status">Runtime & Build Information</RouterLink>
                     </MenuItem>
                     {!agentMode && (
                       <MenuItem onClick={handleClose}>
-                        <Link href="tsdb-status"> TSDB Status</Link>
+                        <RouterLink to="tsdb-status"> TSDB Status</RouterLink>
                       </MenuItem>
                     )}
                     <MenuItem onClick={handleClose}>
-                      <Link href="flags">Command-Line Flags</Link>
+                      <RouterLink to="flags">Command-Line Flags</RouterLink>
                     </MenuItem>
                     <MenuItem onClick={handleClose}>
-                      <Link href="config">Configuration</Link>
+                      <RouterLink to="config">Configuration</RouterLink>
                     </MenuItem>
                     {!agentMode && (
                       <MenuItem onClick={handleClose}>
-                        <Link href="rules">Rules</Link>
+                        <RouterLink to="rules">Rules</RouterLink>
                       </MenuItem>
                     )}
                     <MenuItem onClick={handleClose}>
-                      <Link href="targets">Targets</Link>
+                      <RouterLink to="targets">Targets</RouterLink>
                     </MenuItem>
                     <MenuItem onClick={handleClose}>
-                      <Link href="service-discovery">Service Discovery</Link>
+                      <RouterLink to="service-discovery">Service Discovery</RouterLink>
                     </MenuItem>
                   </MenuList>
                 </ClickAwayListener>
