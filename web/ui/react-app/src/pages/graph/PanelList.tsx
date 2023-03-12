@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { Box } from '@mui/material';
 import { Alert, Button, Toast, ToastBody } from 'reactstrap';
 
 import Checkbox from '../../components/Checkbox';
@@ -157,7 +158,7 @@ const PanelList: FC = () => {
   }, [timeRes.data]);
 
   return (
-    <>
+    <Box>
       <ToastContext.Provider value={onClipboardMsg}>
         <div className="clearfix">
           <Toast
@@ -233,7 +234,7 @@ const PanelList: FC = () => {
           enableLinter={enableLinter}
         />
       </ToastContext.Provider>
-    </>
+    </Box>
   );
 };
 

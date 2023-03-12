@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { createTheme as createMuiTheme, ThemeProvider as MuiThemeProvider } from '@mui/material';
-import { Container } from 'reactstrap';
+import { createTheme as createMuiTheme, ThemeProvider as MuiThemeProvider, Box, CssBaseline } from '@mui/material';
 import Navigation from './Navbar';
 
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
@@ -81,17 +80,24 @@ const App: FC<AppProps> = ({ consolesLink, agentMode }) => {
       value={{ theme: theme, userPreference: userTheme, setTheme: (t: themeSetting) => setUserTheme(t) }}
     >
       <MuiThemeProvider theme={muiTheme}>
+        <CssBaseline />
         <Theme />
         <PathPrefixContext.Provider value={basePath}>
           <Router basename={basePath}>
             <Navigation consolesLink={consolesLink} agentMode={agentMode} />
-            <Container fluid style={{ paddingTop: 70 }}>
+            <Box
+              sx={(theme) => ({
+                padding: theme.spacing('70px', 2),
+                backgroundColor:
+                  theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.background.paper,
+              })}
+            >
               <Switch>
                 <Redirect exact from="/" to={agentMode ? '/agent' : '/graph'} />
                 {/*
-              NOTE: Any route added here needs to also be added to the list of
-              React-handled router paths ("reactRouterPaths") in /web/web.go.
-            */}
+                  NOTE: Any route added here needs to also be added to the list of
+                  React-handled router paths ("reactRouterPaths") in /web/web.go.
+                */}
                 <Route path="/agent">
                   <AgentPage />
                 </Route>
@@ -129,7 +135,7 @@ const App: FC<AppProps> = ({ consolesLink, agentMode }) => {
                   <TargetsPage />
                 </Route>
               </Switch>
-            </Container>
+            </Box>
           </Router>
         </PathPrefixContext.Provider>
       </MuiThemeProvider>
