@@ -15,6 +15,7 @@ import {
 } from 'reactstrap';
 import { ThemeToggle } from './Theme';
 import logo from './images/prometheus_logo_grey.svg';
+import StatusMenu from './StatusMenu';
 
 interface NavbarProps {
   consolesLink: string | null;
@@ -62,6 +63,7 @@ const Navigation: FC<NavbarProps> = ({ consolesLink, agentMode }) => {
               </MenuItem>
             </>
           )}
+          <StatusMenu agentMode={agentMode} />
           <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav caret>
               Status
