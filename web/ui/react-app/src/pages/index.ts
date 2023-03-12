@@ -7,6 +7,8 @@ import ServiceDiscovery from './serviceDiscovery/Services';
 import Status from './status/Status';
 import Targets from './targets/Targets';
 import PanelList from './graph/PanelList';
+import PersesPanelList from './graph/PersesPanelList';
+import Dashboard from './dashboard/Dashboard';
 import TSDBStatus from './tsdbStatus/TSDBStatus';
 import { withStartingIndicator } from '../components/withStartingIndicator';
 
@@ -20,6 +22,8 @@ const StatusPage = withStartingIndicator(Status);
 const TSDBStatusPage = withStartingIndicator(TSDBStatus);
 const TargetsPage = withStartingIndicator(Targets);
 const PanelListPage = withStartingIndicator(PanelList);
+const PersesPanelListPage = withStartingIndicator(PersesPanelList);
+const DashboardPage = withStartingIndicator(Dashboard);
 
 // prettier-ignore
 export {
@@ -32,5 +36,7 @@ export {
   StatusPage,
   TSDBStatusPage,
   TargetsPage,
-  PanelListPage
+  PanelListPage,
+  PersesPanelListPage,
+  DashboardPage
 };

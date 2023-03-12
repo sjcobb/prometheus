@@ -11,8 +11,10 @@ import {
   AgentPage,
   AlertsPage,
   ConfigPage,
+  DashboardPage,
   FlagsPage,
   PanelListPage,
+  PersesPanelListPage,
   RulesPage,
   ServiceDiscoveryPage,
   StatusPage,
@@ -34,6 +36,7 @@ const App: FC<AppProps> = ({ consolesLink, agentMode }) => {
   const paths = [
     '/agent',
     '/graph',
+    '/dashboard',
     '/alerts',
     '/status',
     '/tsdb-status',
@@ -86,6 +89,12 @@ const App: FC<AppProps> = ({ consolesLink, agentMode }) => {
               </Route>
               <Route path="/graph">
                 <PanelListPage />
+              </Route>
+              <Route path="/perses">
+                <PersesPanelListPage />
+              </Route>
+              <Route path="/dashboard">
+                <DashboardPage />
               </Route>
               <Route path="/alerts">
                 <AlertsPage />
