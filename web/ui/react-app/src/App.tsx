@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { createTheme as createMuiTheme, ThemeProvider as MuiThemeProvider } from '@mui/material';
 import { Container } from 'reactstrap';
 import Navigation from './Navbar';
 
@@ -69,61 +70,69 @@ const App: FC<AppProps> = ({ consolesLink, agentMode }) => {
     theme = browserHasThemes ? (browserWantsDarkTheme ? 'dark' : 'light') : 'light';
   }
 
+  const muiTheme = createMuiTheme({
+    palette: {
+      mode: theme,
+    },
+  });
+
   return (
     <ThemeContext.Provider
       value={{ theme: theme, userPreference: userTheme, setTheme: (t: themeSetting) => setUserTheme(t) }}
     >
-      <Theme />
-      <PathPrefixContext.Provider value={basePath}>
-        <Router basename={basePath}>
-          <Navigation consolesLink={consolesLink} agentMode={agentMode} />
-          <Container fluid style={{ paddingTop: 70 }}>
-            <Switch>
-              <Redirect exact from="/" to={agentMode ? '/agent' : '/graph'} />
-              {/*
+      <MuiThemeProvider theme={muiTheme}>
+        <Theme />
+        <PathPrefixContext.Provider value={basePath}>
+          <Router basename={basePath}>
+            <Navigation consolesLink={consolesLink} agentMode={agentMode} />
+            <Container fluid style={{ paddingTop: 70 }}>
+              <Switch>
+                <Redirect exact from="/" to={agentMode ? '/agent' : '/graph'} />
+                {/*
               NOTE: Any route added here needs to also be added to the list of
               React-handled router paths ("reactRouterPaths") in /web/web.go.
             */}
-              <Route path="/agent">
-                <AgentPage />
-              </Route>
-              <Route path="/graph">
-                <PanelListPage />
-              </Route>
-              <Route path="/perses">
-                <PersesPanelListPage />
-              </Route>
-              <Route path="/dashboard">
-                <DashboardPage />
-              </Route>
-              <Route path="/alerts">
-                <AlertsPage />
-              </Route>
-              <Route path="/config">
-                <ConfigPage />
-              </Route>
-              <Route path="/flags">
-                <FlagsPage />
-              </Route>
-              <Route path="/rules">
-                <RulesPage />
-              </Route>
-              <Route path="/service-discovery">
-                <ServiceDiscoveryPage />
-              </Route>
-              <Route path="/status">
-                <StatusPage agentMode={agentMode} />
-              </Route>
-              <Route path="/tsdb-status">
-                <TSDBStatusPage />
-              </Route>
-              <Route path="/targets">
-                <TargetsPage />
-              </Route>
-            </Switch>
-          </Container>
-        </Router>
-      </PathPrefixContext.Provider>
+                <Route path="/agent">
+                  <AgentPage />
+                </Route>
+                <Route path="/graph">
+                  <PanelListPage />
+                </Route>
+                <Route path="/perses">
+                  <PersesPanelListPage />
+                </Route>
+                <Route path="/dashboard">
+                  <DashboardPage />
+                </Route>
+                <Route path="/alerts">
+                  <AlertsPage />
+                </Route>
+                <Route path="/config">
+                  <ConfigPage />
+                </Route>
+                <Route path="/flags">
+                  <FlagsPage />
+                </Route>
+                <Route path="/rules">
+                  <RulesPage />
+                </Route>
+                <Route path="/service-discovery">
+                  <ServiceDiscoveryPage />
+                </Route>
+                <Route path="/status">
+                  <StatusPage agentMode={agentMode} />
+                </Route>
+                <Route path="/tsdb-status">
+                  <TSDBStatusPage />
+                </Route>
+                <Route path="/targets">
+                  <TargetsPage />
+                </Route>
+              </Switch>
+            </Container>
+          </Router>
+        </PathPrefixContext.Provider>
+      </MuiThemeProvider>
     </ThemeContext.Provider>
   );
 };
