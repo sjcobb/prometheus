@@ -22,6 +22,7 @@ import {
   PersesDashboardPage,
 } from './pages';
 import { Theme, themeLocalStorageKey } from './Theme';
+import { getTheme } from './themes/muiTheme';
 
 interface AppProps {
   consolesLink: string | null;
@@ -70,11 +71,7 @@ const App: FC<AppProps> = ({ consolesLink, agentMode }) => {
     theme = browserHasThemes ? (browserWantsDarkTheme ? 'dark' : 'light') : 'light';
   }
 
-  const muiTheme = createMuiTheme({
-    palette: {
-      mode: theme,
-    },
-  });
+  const muiTheme = getTheme(theme);
 
   return (
     <ThemeContext.Provider
