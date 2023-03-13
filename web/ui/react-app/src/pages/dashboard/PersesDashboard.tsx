@@ -1,4 +1,4 @@
-// import { useCallback } from 'react';
+import { FC } from 'react';
 import { Typography } from '@mui/material';
 import { DashboardResource } from '@perses-dev/core';
 import { ViewDashboard } from '@perses-dev/dashboards';
@@ -91,7 +91,7 @@ const defaultDashboard: DashboardResource = {
   },
 };
 
-const Dashboard = () => {
+const PersesDashboard: FC = () => {
   const datasourceApi = useDatasourceApi();
 
   // const [homeDashboard, setHomeDashboard] = useLocalStorage('prom-home-dashboard', defaultDashboard);
@@ -117,4 +117,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default PersesDashboard;

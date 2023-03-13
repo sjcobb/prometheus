@@ -11,15 +11,15 @@ import {
   AgentPage,
   AlertsPage,
   ConfigPage,
-  DashboardPage,
   FlagsPage,
   PanelListPage,
-  PersesPanelListPage,
   RulesPage,
   ServiceDiscoveryPage,
   StatusPage,
   TargetsPage,
   TSDBStatusPage,
+  PersesPanelListPage,
+  PersesDashboardPage,
 } from './pages';
 import { Theme, themeLocalStorageKey } from './Theme';
 
@@ -133,7 +133,7 @@ const App: FC<AppProps> = ({ consolesLink, agentMode }) => {
                   <PersesPanelListPage />
                 </Route>
                 <Route path="/perses-dashboard">
-                  <DashboardPage />
+                  <PersesDashboardPage />
                 </Route>
               </Switch>
             </Box>

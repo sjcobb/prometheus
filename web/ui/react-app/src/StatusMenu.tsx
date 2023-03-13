@@ -1,12 +1,14 @@
-import { useEffect, useRef, useState, SyntheticEvent, KeyboardEvent, FC } from 'react';
-import { Button, Box, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList, Stack } from '@mui/material';
+import { useEffect, useRef, useState, SyntheticEvent, KeyboardEvent } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { Button, Box, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList, Stack, Typography } from '@mui/material';
+import ChevronDown from 'mdi-material-ui/ChevronDown';
 
 interface StatusMenuProps {
   agentMode: boolean;
 }
 
-const StatusMenu: FC<StatusMenuProps> = ({ agentMode }) => {
+export function StatusMenu(props: StatusMenuProps) {
+  const { agentMode } = props;
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
 
@@ -43,7 +45,13 @@ const StatusMenu: FC<StatusMenuProps> = ({ agentMode }) => {
 
   return (
     <Stack direction="row" spacing={2}>
-      <Box>
+      <Box
+        sx={(theme) => ({
+          a: {
+            color: theme.palette.text.primary,
+          },
+        })}
+      >
         <Button
           ref={anchorRef}
           aria-controls={open ? 'status-menu' : undefined}
@@ -51,7 +59,15 @@ const StatusMenu: FC<StatusMenuProps> = ({ agentMode }) => {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          Status
+          <Typography
+            sx={(theme) => ({
+              color: theme.palette.grey[500],
+              textTransform: 'none',
+            })}
+          >
+            Status
+            <ChevronDown />
+          </Typography>
         </Button>
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} placement="bottom-start" transition disablePortal>
           {({ TransitionProps, placement }) => (
@@ -103,6 +119,4 @@ const StatusMenu: FC<StatusMenuProps> = ({ agentMode }) => {
       </Box>
     </Stack>
   );
-};
-
-export default StatusMenu;
+}

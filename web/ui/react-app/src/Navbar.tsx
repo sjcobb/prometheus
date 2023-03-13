@@ -1,21 +1,10 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MenuItem } from '@mui/material';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  Nav,
-  // MenuItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, Nav, NavLink } from 'reactstrap';
 import { ThemeToggle } from './Theme';
 import logo from './images/prometheus_logo_grey.svg';
-import StatusMenu from './StatusMenu';
+import { StatusMenu } from './StatusMenu';
 
 interface NavbarProps {
   consolesLink: string | null;
@@ -51,51 +40,11 @@ const Navigation: FC<NavbarProps> = ({ consolesLink, agentMode }) => {
                   Graph
                 </NavLink>
               </MenuItem>
-              <MenuItem>
-                <NavLink tag={Link} to="/perses-graph">
-                  Perses
-                </NavLink>
-              </MenuItem>
-              <MenuItem>
-                <NavLink tag={Link} to="/perses-dashboard">
-                  Dashboard
-                </NavLink>
-              </MenuItem>
             </>
           )}
-          <StatusMenu agentMode={agentMode} />
-          <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret>
-              Status
-            </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem tag={Link} to="/status">
-                Runtime & Build Information
-              </DropdownItem>
-              {!agentMode && (
-                <DropdownItem tag={Link} to="/tsdb-status">
-                  TSDB Status
-                </DropdownItem>
-              )}
-              <DropdownItem tag={Link} to="/flags">
-                Command-Line Flags
-              </DropdownItem>
-              <DropdownItem tag={Link} to="/config">
-                Configuration
-              </DropdownItem>
-              {!agentMode && (
-                <DropdownItem tag={Link} to="/rules">
-                  Rules
-                </DropdownItem>
-              )}
-              <DropdownItem tag={Link} to="/targets">
-                Targets
-              </DropdownItem>
-              <DropdownItem tag={Link} to="/service-discovery">
-                Service Discovery
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
+          <MenuItem>
+            <StatusMenu agentMode={agentMode} />
+          </MenuItem>
           <MenuItem>
             <NavLink href="https://prometheus.io/docs/prometheus/latest/getting_started/">Help</NavLink>
           </MenuItem>
